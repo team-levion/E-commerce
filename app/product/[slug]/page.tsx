@@ -6,11 +6,13 @@ import { Heart, Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/button";
 import { ProductGrid } from "@/components/product-grid";
-import { getProduct, money, products } from "@/lib/products";
+import { money } from "@/lib/products";
 import { useCommerce } from "@/lib/use-commerce";
+import { useProducts, useProduct } from "@/lib/use-products";
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = getProduct(params.slug);
+  const { product } = useProduct(params.slug);
+  const { products } = useProducts();
   const { addToCart, toggleWishlist, isWishlisted } = useCommerce();
   const [size, setSize] = useState(product?.sizes[0] ?? "");
   const [color, setColor] = useState(product?.colors[0] ?? "");

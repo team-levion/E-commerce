@@ -3,10 +3,12 @@
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ProductGrid } from "@/components/product-grid";
-import { categories, products } from "@/lib/products";
+import { categories } from "@/lib/products";
+import { useProducts } from "@/lib/use-products";
 
 function ShopContent() {
   const params = useSearchParams();
+  const { products, loading } = useProducts();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [maxPrice, setMaxPrice] = useState("400");
@@ -26,7 +28,7 @@ function ShopContent() {
         if (sort === "new") return b.id.localeCompare(a.id);
         return Number(b.featured) - Number(a.featured);
       });
-  }, [audience, category, maxPrice, query, sort]);
+  }, [audience, category, maxPrice, products, query, sort]);
 
   return (
     <section className="section py-12">
@@ -35,7 +37,7 @@ function ShopContent() {
           <p className="eyebrow">Shop</p>
           <h1 className="mt-3 font-serif text-6xl">{audience ?? "Collection"}</h1>
         </div>
-        <p className="text-sm text-stone">{filtered.length} products</p>
+        <p className="text-sm text-stone">{loading ? "Loading products" : `${filtered.length} products`}</p>
       </div>
       <div className="grid gap-3 py-8 md:grid-cols-4">
         <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" className="h-12 border border-ink/10 bg-porcelain px-4 outline-none focus:border-ink" />

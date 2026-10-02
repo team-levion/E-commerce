@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 import { useCommerce } from "@/lib/use-commerce";
 
@@ -27,6 +27,7 @@ export function Navbar() {
         </nav>
         <div className="flex items-center gap-2">
           <Link href="/shop" aria-label="Search" className="p-2 hover:text-stone"><Search size={19} /></Link>
+          <Link href="/login" aria-label="Account" className="p-2 hover:text-stone"><User size={19} /></Link>
           <Link href="/wishlist" aria-label="Wishlist" className="relative p-2 hover:text-stone">
             <Heart size={19} />
             {wishlist.length > 0 && <span className="absolute right-0 top-0 h-4 min-w-4 rounded-full bg-ink px-1 text-center text-[10px] text-porcelain">{wishlist.length}</span>}

@@ -26,10 +26,32 @@ export default function CheckoutPage() {
       setError("Please complete the required checkout fields.");
       return;
     }
-    const order = `NR-${Math.floor(100000 + Math.random() * 900000)}`;
-    window.localStorage.setItem("noire-last-order", order);
-    clearCart();
-    router.push("/order-success");
+    fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        customer: {
+          fullName: data.get("fullName"),
+          email: data.get("email"),
+          phone: data.get("phone"),
+          address: data.get("address"),
+          city: data.get("city"),
+          state: data.get("state"),
+          postalCode: data.get("postalCode"),
+          country: data.get("country")
+        },
+        paymentMethod: payment,
+        items: cart
+      })
+    })
+      .then(async (response) => {
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error ?? "Unable to place order.");
+        window.localStorage.setItem("noire-last-order", payload.orderId);
+        clearCart();
+        router.push("/order-success");
+      })
+      .catch((orderError: Error) => setError(orderError.message));
   }
 
   return (
