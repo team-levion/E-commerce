@@ -5,7 +5,7 @@ import { useCommerce } from "@/lib/use-commerce";
 
 export function OrderSummary() {
   const { cart, subtotal } = useCommerce();
-  const shipping = subtotal > 250 || subtotal === 0 ? 0 : 12;
+  const shipping = subtotal > 9999 || subtotal === 0 ? 0 : 199;
 
   return (
     <aside className="border border-ink/10 bg-porcelain p-6">

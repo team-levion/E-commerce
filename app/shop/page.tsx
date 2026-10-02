@@ -11,7 +11,7 @@ function ShopContent() {
   const { products, loading } = useProducts();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [maxPrice, setMaxPrice] = useState("400");
+  const [maxPrice, setMaxPrice] = useState("12000");
   const [sort, setSort] = useState(params.get("sort") ?? "featured");
   const audience = params.get("audience");
 
@@ -45,9 +45,9 @@ function ShopContent() {
           {categories.map((entry) => <option key={entry}>{entry}</option>)}
         </select>
         <select value={maxPrice} onChange={(event) => setMaxPrice(event.target.value)} className="h-12 border border-ink/10 bg-porcelain px-4 outline-none">
-          <option value="100">Under $100</option>
-          <option value="200">Under $200</option>
-          <option value="400">All prices</option>
+          <option value="3000">Under ₹3,000</option>
+          <option value="6000">Under ₹6,000</option>
+          <option value="12000">All prices</option>
         </select>
         <select value={sort} onChange={(event) => setSort(event.target.value)} className="h-12 border border-ink/10 bg-porcelain px-4 outline-none">
           <option value="featured">Featured</option>

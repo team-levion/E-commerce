@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     const product = catalog.find((entry) => entry.id === item.productId);
     return sum + Number(product?.price ?? 0) * item.quantity;
   }, 0);
-  const shipping = subtotal > 250 ? 0 : 12;
+  const shipping = subtotal > 9999 ? 0 : 199;
   const total = subtotal + shipping;
 
   const { data: order, error: orderError } = await supabase
